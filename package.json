@@ -1,0 +1,26 @@
+{
+  "name": "strapi-plugin-ja-pack",
+  "version": "1.0.0",
+  "description": "Translate Strapi's admin panel into Japanese.",
+  "strapi": {
+    "name": "strapi-plugin-ja-pack",
+    "displayName": "strapi-plugin-ja-pack",
+    "description": "Translate Strapi's admin panel into Japanese.",
+    "kind": "plugin"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "diff": "node tools/localeDiff.js"
+  },
+  "author": "yasudacloud",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "yasuda yuya"
+    }
+  ],
+  "engines": {
+    "node": ">=12.x. <=16.x.x",
+    "npm": ">=6.0.0"
+  }
+}
