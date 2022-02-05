@@ -8,7 +8,12 @@
 https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/installation/cli.html#creating-a-strapi-project
 
 ### 2. Install Plugin
-yarn add https://github.com/yasudacloud/strapi-plugin-ja-pack.git
+mkdir {project root}/src/plugins
+
+cd {project root}/src/plugins
+
+git clone https://github.com/yasudacloud/strapi-plugin-ja-pack.git
+
 
 ### 3. Enable i18n & ja-pack Plugin
 config/plugins.js
@@ -18,7 +23,7 @@ module.exports = ({env}) => ({
   i18n: true,
   'strapi-plugin-ja-pack': {
     enabled: true,
-    resolve: './node_modules/strapi-plugin-ja-pack',
+    resolve: './src/plugins/strapi-plugin-ja-pack',
   },
 });
 ```
