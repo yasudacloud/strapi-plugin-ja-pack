@@ -8,8 +8,6 @@ export default {
   bootstrap() {
   },
   async registerTrads({locales}) {
-    console.log('@@locales')
-    console.log(locales)
     if (!locales.some(locale => locale === 'ja')) {
       return {}
     }
