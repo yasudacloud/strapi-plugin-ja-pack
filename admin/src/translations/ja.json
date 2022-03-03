@@ -429,7 +429,7 @@
   "content-type-builder.form.button.select-component": "",
   "content-type-builder.form.button.single-type.description": "ホームページや自分についてなどのような単数情報の登録に優れています",
   "content-type-builder.form.contentType.divider.draft-publish": "下書き/公開",
-  "content-type-builder.listView.headerLayout.description": "説明文",
+  "content-type-builder.listView.headerLayout.description": "コンテンツの構成を作成",
   "content-type-builder.menu.section.components.name.plural": "コンポーネント",
   "content-type-builder.menu.section.components.name.singular": "コンポーネント",
   "content-type-builder.menu.section.single-types.name.plural": "シングルタイプ",
