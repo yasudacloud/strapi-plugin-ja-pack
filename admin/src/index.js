@@ -9,8 +9,9 @@ export default {
   },
   async registerTrads({locales}) {
     if (!locales.some(locale => locale === 'ja')) {
-      return {}
+      return []
     }
+
     const translations = await import(`./translations/ja.json`);
     const jaMessages = translations.default;
     jaMessages[`${pluginId}.plugin.name`] = 'Strapi 日本語プラグイン';
