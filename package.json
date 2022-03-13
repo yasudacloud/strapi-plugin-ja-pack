@@ -8,9 +8,26 @@
     "description": "Translate Strapi's admin panel into Japanese.",
     "kind": "plugin"
   },
+  "keywords": [
+    "strapi",
+    "plugin",
+    "translate",
+    "ja",
+    "日本語"
+  ],
+  "peerDependencies": {
+    "@strapi/strapi": "4.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "diff": "node tools/localeDiff.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yasudacloud/strapi-plugin-ja-pack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yasudacloud/strapi-plugin-ja-pack/issues"
   },
   "author": "yasudacloud",
   "license": "MIT",
