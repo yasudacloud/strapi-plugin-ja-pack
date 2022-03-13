@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-ja-pack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Translate Strapi's admin panel into Japanese.",
   "strapi": {
     "name": "strapi-plugin-ja-pack",
