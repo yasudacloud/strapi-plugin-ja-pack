@@ -8,6 +8,9 @@
     "description": "Translate Strapi's admin panel into Japanese.",
     "kind": "plugin"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "keywords": [
     "strapi",
     "plugin",
