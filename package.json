@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-ja-pack",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Translate Strapi's admin panel into Japanese.",
   "strapi": {
     "name": "strapi-plugin-ja-pack",
@@ -40,7 +40,7 @@
     }
   ],
   "engines": {
-    "node": ">=12.x. <=16.x.x",
+    "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
   }
 }
