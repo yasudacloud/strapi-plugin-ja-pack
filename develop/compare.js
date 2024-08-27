@@ -1,5 +1,8 @@
 'use strict';
 
+// Output JSON with English value instead of an empty string.
+const withValue= false
+
 // Set path to packages. ref. https://github.com/strapi/strapi/tree/develop/packages/
 const basePath = `${__dirname}/../../strapi/packages`
 const target = [
@@ -91,7 +94,7 @@ async function main() {
         // The key already exists.
         console.warn(`Multiple translation keys found: ${key}`)
       }
-      translations[key] = ''
+      translations[key] = withValue ? source[targetKey] : ''
     }
   }
   console.log("\n\n");
