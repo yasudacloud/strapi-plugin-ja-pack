@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-ja-pack",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Translate Strapi's admin panel into Japanese.",
   "strapi": {
     "name": "strapi-plugin-ja-pack",
@@ -22,8 +22,7 @@
     "@strapi/strapi": "4.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "diff": "node tools/localeDiff.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
