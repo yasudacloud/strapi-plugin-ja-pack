@@ -39,14 +39,14 @@ const target = [
 async function main() {
   let translations = {};
   for (const lang of target) {
-    const source = (await import(`${__dirname}/../../../../${lang.source}`)).default
+    const source = (await import(`${__dirname}/../../../../${lang.source}`, {with: {type: "json"}})).default
     let pluginTranslation;
     if (!lang.dest) {
       // Add all of them since they are only in English
       pluginTranslation = Object.keys(source);
     } else {
       // What is in English but not in Japanese
-      const dest = (await import(`${__dirname}/../../../../${lang.dest}`)).default
+      const dest = (await import(`${__dirname}/../../../../${lang.dest}`, {with: {type: "json"}})).default
       const sourceKeys = Object.keys(source)
       const destKeys = Object.keys(dest)
       const targetKeys = sourceKeys.filter(sourceKey => !destKeys.some(destKey => sourceKey === destKey))
