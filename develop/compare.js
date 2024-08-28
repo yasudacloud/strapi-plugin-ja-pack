@@ -7,65 +7,55 @@ const outOptions = {
 
 // Set path to packages. ref. https://github.com/strapi/strapi/tree/develop/packages/
 const basePath = `${__dirname}/../../strapi/packages`
+const suffixEn = 'admin/src/translations/en.json'
+const suffixJa = 'admin/src/translations/ja.json'
 const target = [
   {
-    source: 'core/admin/admin/src/translations/en.json',
-    dest: 'core/admin/admin/src/translations/ja.json',
+    source: 'core/admin',
     prefix: ''
   },
   {
-    source: 'core/content-releases/admin/src/translations/en.json',
-    dest: 'core/content-releases/admin/src/translations/ja.json',
+    source: 'core/content-releases',
     prefix: 'content-releases'
   },
   {
-    source: 'core/content-type-builder/admin/src/translations/en.json',
-    dest: 'core/content-type-builder/admin/src/translations/ja.json',
+    source: 'core/content-type-builder',
     prefix: 'content-type-builder'
   },
   {
-    source: 'core/email/admin/src/translations/en.json',
-    dest: 'core/email/admin/src/translations/ja.json',
+    source: 'core/email',
     prefix: 'email'
   },
   {
-    source: 'core/upload/admin/src/translations/en.json',
-    dest: 'core/upload/admin/src/translations/ja.json',
+    source: 'core/upload',
     prefix: 'upload'
   },
   {
-    source: 'plugins/cloud/admin/src/translations/en.json',
-    dest: 'plugins/cloud/admin/src/translations/ja.json',
+    source: 'plugins/cloud',
     prefix: 'cloud'
   },
   {
-    source: 'plugins/color-picker/admin/src/translations/en.json',
-    dest: 'plugins/color-picker/admin/src/translations/ja.json',
+    source: 'plugins/color-picker',
     prefix: 'color-picker'
   },
   {
-    source: 'plugins/documentation/admin/src/translations/en.json',
-    dest: 'plugins/documentation/admin/src/translations/ja.json',
+    source: 'plugins/documentation',
     prefix: 'documentation'
   },
   {
-    source: 'plugins/graphql/admin/src/translations/en.json',
-    dest: 'plugins/graphql/admin/src/translations/ja.json',
+    source: 'plugins/graphql',
     prefix: 'graphql'
   },
   {
-    source: 'plugins/i18n/admin/src/translations/en.json',
-    dest: 'plugins/i18n/admin/src/translations/ja.json',
+    source: 'plugins/i18n',
     prefix: 'i18n'
   },
   {
-    source: 'plugins/sentry/admin/src/translations/en.json',
-    dest: 'plugins/sentry/admin/src/translations/ja.json',
+    source: 'plugins/sentry',
     prefix: 'sentry'
   },
   {
-    source: 'plugins/users-permissions/admin/src/translations/en.json',
-    dest: 'plugins/users-permissions/admin/src/translations/ja.json',
+    source: 'plugins/users-permissions',
     prefix: 'users-permissions'
   },
 ]
@@ -77,21 +67,23 @@ const target = [
 async function main() {
   let out = {};
   for (const lang of target) {
-    const source = (await import(`${basePath}/${lang.source}`, {with: {type: "json"}})).default
-    let dest, pluginTranslation
+    const pathEn = `${basePath}/${lang.source}/${suffixEn}`
+    const en = (await import(pathEn, {with: {type: "json"}})).default
+
+    let diffKeys
     try {
-      dest = (await import(`${basePath}/${lang.dest}`, {with: {type: "json"}})).default
-      const sourceKeys = Object.keys(source)
-      const destKeys = Object.keys(dest)
-      const targetKeys = sourceKeys.filter(sourceKey => !destKeys.some(destKey => sourceKey === destKey))
-      pluginTranslation = targetKeys;
+      const pathJa = `${basePath}/${lang.source}/${suffixJa}`
+      const ja = (await import(pathJa, {with: {type: "json"}})).default
+      const enKeys = Object.keys(en)
+      const jaKeys = Object.keys(ja)
+      diffKeys = enKeys.filter(e => !jaKeys.some(j => e === j))
     } catch (error) {
       // Add all of them since they are only in English
-      pluginTranslation = Object.keys(source);
+      diffKeys = Object.keys(en);
     }
 
-    for (const targetKey of pluginTranslation) {
-      const key = lang.prefix ? `${lang.prefix}.${targetKey}` : targetKey
+    for (const diffKey of diffKeys) {
+      const key = lang.prefix ? `${lang.prefix}.${diffKey}` : diffKey
       if (out[key]) {
         // The key already exists.
         console.warn(`Multiple translation keys found: ${key}`)
@@ -102,6 +94,4 @@ async function main() {
   console.log(JSON.stringify(out, null, outOptions.indent));
 }
 
-(() => {
-  main()
-})()
+(() => main())()
