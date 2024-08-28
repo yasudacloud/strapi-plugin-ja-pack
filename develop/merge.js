@@ -1,7 +1,14 @@
 'use strict';
+const process = require("node:process");
 
-const basePath = `${__dirname}/../admin/src/translations`
-const lang = { base: 'translated.json', keep: 'ja.json' };
+const outOptions = {
+  withValue: true, // Output JSON with English value instead of an empty string.
+  indent: 2
+}
+const lang = {
+  translated: process.argv[3],
+  current: process.argv[2],
+};
 
 
 /**
@@ -11,17 +18,16 @@ const lang = { base: 'translated.json', keep: 'ja.json' };
 async function main() {
 
   // Import json
-  const base = (await import(`${basePath}/${lang.base}`, { with: {type: "json"} })).default
-  const keep = (await import(`${basePath}/${lang.keep}`, { with: {type: "json"} })).default
+  const translated = (await import(`${__dirname}/${lang.translated}`, { with: {type: "json"} })).default
+  const current = (await import(`${__dirname}/${lang.current}`, { with: {type: "json"} })).default
 
   let output = {};
-  for (const key of Object.keys(base)) {
+  for (const key of Object.keys(translated)) {
     if (output.hasOwnProperty(key)) console.warn(`WARN: Conflict Key: ${key}`)
-    output[key] = (keep.hasOwnProperty(key) && keep[key]) ? keep[key] : base[key]
+    output[key] = (current.hasOwnProperty(key) && current[key]) ? current[key] : translated[key]
   }
 
-  console.log("\n\n");
-  console.log(JSON.stringify(output));
+  console.log(JSON.stringify(output, null, outOptions.indent));
 }
 
 (() => {
