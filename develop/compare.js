@@ -6,7 +6,7 @@ const outOptions = {
 }
 
 // Set path to packages. ref. https://github.com/strapi/strapi/tree/develop/packages/
-const basePath = `${__dirname}/../../strapi/packages`
+const basePath = `${__dirname}/src/strapi/packages`
 const suffixEn = 'admin/src/translations/en.json'
 const suffixJa = 'admin/src/translations/ja.json'
 const target = [
