@@ -1,7 +1,9 @@
 'use strict';
 
-// Output JSON with English value instead of an empty string.
-const withValue= false
+const outOptions = {
+  withValue: true, // Output JSON with English value instead of an empty string.
+  indent: 2
+}
 
 // Set path to packages. ref. https://github.com/strapi/strapi/tree/develop/packages/
 const basePath = `${__dirname}/../../strapi/packages`
@@ -73,7 +75,7 @@ const target = [
  * @return {Promise<void>}
  */
 async function main() {
-  let translations = {};
+  let out = {};
   for (const lang of target) {
     const source = (await import(`${basePath}/${lang.source}`, {with: {type: "json"}})).default
     let dest, pluginTranslation
@@ -90,15 +92,14 @@ async function main() {
 
     for (const targetKey of pluginTranslation) {
       const key = lang.prefix ? `${lang.prefix}.${targetKey}` : targetKey
-      if (translations[key]) {
+      if (out[key]) {
         // The key already exists.
         console.warn(`Multiple translation keys found: ${key}`)
       }
-      translations[key] = withValue ? source[targetKey] : ''
+      out[key] = outOptions.withValue ? en[diffKey] : ''
     }
   }
-  console.log("\n\n");
-  console.log(JSON.stringify(translations));
+  console.log(JSON.stringify(out, null, outOptions.indent));
 }
 
 (() => {
