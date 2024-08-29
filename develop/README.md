@@ -4,13 +4,12 @@ admin/src/translations/ja.json
 
 ## How to Work Efficiently
 
-### 1. ロケールファイルの差分を抽出
-
+### 1. 翻訳ファイルの差分を抽出
+ 
 `develop`フォルダで以下のコマンドを実行します(`make`コマンドが必要です)。  
 日本語の翻訳が無いプロパティを`develop/dst/diff.json`として出力します
 
 ```bash
-make clone
 make compare
 ```
 
@@ -36,15 +35,6 @@ const config = {
     'ja',
   ],
 };
-
-const bootstrap = (app) => {
-  console.log(app);
-};
-
-export default {
-  config,
-  bootstrap,
-};
 ```
 
 Admin Panelの表示に反映するにはリビルドが必要です。
@@ -54,7 +44,7 @@ npm run build
 npm run develop
 ```
 
-### 4. 過去のロケールファイルと結合
+### 4. 過去の翻訳ファイルと結合
 
 過去の翻訳実績(`admin/src/translations/ja.json`)を優先して残しておきたい場合は、プロパティ名をキーとしてマージすることが可能です。  
 過去の翻訳実績を残しておく必要がない場合は、この手順はスキップして構いません。
@@ -66,25 +56,6 @@ npm run develop
 ```bash
 make merge
 ```
-
-## メンテナンス
-
-Strapiの変更に追随するため、定期的に`compare.js`のメンテナンスが必要です。
-
-12行目`target`で指定している、モジュールのパス指定(`source:`)を最新のstrapiソースコードに適応させてください。
-
-```js
-const target = [
-  {
-    source: 'core/admin',
-    prefix: ''
-  },
-  //...
-]
-```
-
-**TODO: メンテナンスフリーとするため、`packages/**/admin/src/translations`をみてtargetを自動でセットできるとよい**
-
 
 ## プロジェクトへの貢献
 
