@@ -1,7 +1,7 @@
 'use strict';
 
 const inputOptions = {
-  remoteRepo: false // If true, retrieve files from GitHub over HTTP (takes more time than local repository).
+  remoteRepo: true // If true, retrieve files from GitHub over HTTP (takes more time than local repository).
 }
 const outOptions = {
   withValue: true, // Output JSON with English value instead of an empty string.
