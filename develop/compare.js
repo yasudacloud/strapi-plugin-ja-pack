@@ -9,56 +9,69 @@ const outOptions = {
 const basePath = `${__dirname}/src/strapi/packages`
 const suffixEn = 'admin/src/translations/en.json'
 const suffixJa = 'admin/src/translations/ja.json'
-const target = [
-  {
-    source: 'core/admin',
-    prefix: ''
-  },
-  {
-    source: 'core/content-releases',
-    prefix: 'content-releases'
-  },
-  {
-    source: 'core/content-type-builder',
-    prefix: 'content-type-builder'
-  },
-  {
-    source: 'core/email',
-    prefix: 'email'
-  },
-  {
-    source: 'core/upload',
-    prefix: 'upload'
-  },
-  {
-    source: 'plugins/cloud',
-    prefix: 'cloud'
-  },
-  {
-    source: 'plugins/color-picker',
-    prefix: 'color-picker'
-  },
-  {
-    source: 'plugins/documentation',
-    prefix: 'documentation'
-  },
-  {
-    source: 'plugins/graphql',
-    prefix: 'graphql'
-  },
-  {
-    source: 'plugins/i18n',
-    prefix: 'i18n'
-  },
-  {
-    source: 'plugins/sentry',
-    prefix: 'sentry'
-  },
-  {
-    source: 'plugins/users-permissions',
-    prefix: 'users-permissions'
-  },
-]
+
+function fetchTarget() {
+  return [
+    {
+      source: 'core/admin',
+      prefix: ''
+    },
+    {
+      source: 'core/content-releases',
+      prefix: 'content-releases'
+    },
+    {
+      source: 'core/content-type-builder',
+      prefix: 'content-type-builder'
+    },
+    {
+      source: 'core/email',
+      prefix: 'email'
+    },
+    {
+      source: 'core/upload',
+      prefix: 'upload'
+    },
+    {
+      source: 'plugins/cloud',
+      prefix: 'cloud'
+    },
+    {
+      source: 'plugins/color-picker',
+      prefix: 'color-picker'
+    },
+    {
+      source: 'plugins/documentation',
+      prefix: 'documentation'
+    },
+    {
+      source: 'plugins/graphql',
+      prefix: 'graphql'
+    },
+    {
+      source: 'plugins/i18n',
+      prefix: 'i18n'
+    },
+    {
+      source: 'plugins/sentry',
+      prefix: 'sentry'
+    },
+    {
+      source: 'plugins/users-permissions',
+      prefix: 'users-permissions'
+    },
+  ]
+}
+
+async function fetchEnJson(lang) {
+  const pathEn = `${basePath}/${lang.source}/${suffixEn}`
+  return (await import(pathEn, {with: {type: "json"}})).default
+}
+
+async function fetchJaJson(lang) {
+  const pathJa = `${basePath}/${lang.source}/${suffixJa}`
+  return (await import(pathJa, {with: {type: "json"}})).default
+}
 
 /**
  * Extract translations with missing Japanese
@@ -66,14 +79,12 @@ const target = [
  */
 async function main() {
   let out = {};
-  for (const lang of target) {
-    const pathEn = `${basePath}/${lang.source}/${suffixEn}`
-    const en = (await import(pathEn, {with: {type: "json"}})).default
+  for (const lang of fetchTarget()) {
+    const en = await fetchEnJson(lang)
 
     let diffKeys
     try {
-      const pathJa = `${basePath}/${lang.source}/${suffixJa}`
-      const ja = (await import(pathJa, {with: {type: "json"}})).default
+      const ja = await fetchJaJson(lang)
       const enKeys = Object.keys(en)
       const jaKeys = Object.keys(ja)
       diffKeys = enKeys.filter(e => !jaKeys.some(j => e === j))
