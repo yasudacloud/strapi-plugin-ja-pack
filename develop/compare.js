@@ -1,9 +1,10 @@
 'use strict';
 
 const inputOptions = {
+  branch: 'main',
   remoteRepo: true // If true, retrieve files from GitHub over HTTP (takes more time than local repository).
 }
-const outOptions = {
+const outputOptions = {
   withValue: true, // Output JSON with English value instead of an empty string.
   indent: 2
 }
@@ -61,7 +62,7 @@ async function fetchPackages(hash) {
     if (! res.ok) throwError(`Network response was not ok. status: ${res.status}`)
 
     const json = await res.json()
-    if (! isValid(json))  throwError(`Invalid JSON format: ${json}`)
+    if (! isValid(json)) throwError(`Invalid JSON format: ${json}`)
 
     return json.paths
       .filter(path => {
@@ -117,19 +118,18 @@ async function fetchRaw(branch, path) {
  * @return {Promise<void>}
  */
 async function main() {
-  const branch = 'main'
-  const hash = await fetchHash(branch)
+  const hash = await fetchHash(inputOptions.branch)
 
-  let out = {};
+  let output = {};
   for (const pkg of await fetchPackages(hash)) {
-    // console.log(`branch: ${branch} | hash: ${hash} | path: ${pkg.source} } prefix: ${pkg.prefix}`)
-    const en = await fetchRaw(branch, `${pkg.source}/en.json`)
+    // console.log(`branch: ${inputOptions.branch} | hash: ${hash} | path: ${pkg.source} } prefix: ${pkg.prefix}`)
+    const en = await fetchRaw(inputOptions.branch, `${pkg.source}/en.json`)
     // console.log(`en: ${en}`)
 
     let diffKeys
     try {
-      const ja = await fetchRaw(branch, `${pkg.source}/ja.json`)
-      // console.log(`ja: ${js}`)
+      const ja = await fetchRaw(inputOptions.branch, `${pkg.source}/ja.json`)
+      // console.log(`ja: ${ja}`)
       const enKeys = Object.keys(en)
       const jaKeys = Object.keys(ja)
       diffKeys = enKeys.filter(e => !jaKeys.some(j => e === j))
@@ -140,14 +140,14 @@ async function main() {
 
     for (const diffKey of diffKeys) {
       const key = pkg.prefix ? `${pkg.prefix}.${diffKey}` : diffKey
-      if (out[key]) {
+      if (output[key]) {
         // The key already exists.
         console.warn(`Multiple translation keys found: ${key}`)
       }
-      out[key] = outOptions.withValue ? en[diffKey] : ''
+      output[key] = outputOptions.withValue ? en[diffKey] : ''
     }
   }
-  console.log(JSON.stringify(out, null, outOptions.indent));
+  console.log(JSON.stringify(output, null, outputOptions.indent));
 }
 
 (() => main())()
