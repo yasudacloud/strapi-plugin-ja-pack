@@ -1,0 +1,4 @@
+src/*
+!src/.gitkeep
+dst/*
+!dst/.gitkeep
