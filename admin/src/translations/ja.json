@@ -285,6 +285,7 @@
   "content-manager.containers.EditView.notification.errors": "",
   "content-manager.containers.List.draft": "下書き",
   "content-manager.containers.List.published": "公開済み",
+  "content-manager.containers.list.table-headers.status": "ステータス",
   "content-manager.containers.ListPage.items": "",
   "content-manager.containers.ListPage.table-headers.published_at": "公開状態",
   "content-manager.containers.ListSettingsView.modal-form.edit-label": "",
