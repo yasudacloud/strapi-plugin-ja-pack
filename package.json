@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-ja-pack",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Translate Strapi's admin panel into Japanese.",
   "strapi": {
     "name": "strapi-plugin-ja-pack",
@@ -23,7 +23,7 @@
     "dist"
   ],
   "peerDependencies": {
-    "@strapi/strapi": "^5.11.3"
+    "@strapi/strapi": "^5.8.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
