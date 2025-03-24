@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-ja-pack",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Translate Strapi's admin panel into Japanese.",
   "strapi": {
     "name": "strapi-plugin-ja-pack",
@@ -11,6 +11,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "type": "commonjs",
   "keywords": [
     "strapi",
     "plugin",
@@ -18,11 +19,18 @@
     "ja",
     "日本語"
   ],
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
-    "@strapi/strapi": "4.x"
+    "@strapi/strapi": "^5.11.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "strapi-plugin build",
+    "watch": "strapi-plugin watch",
+    "watch:link": "strapi-plugin watch:link",
+    "verify": "strapi-plugin verify"
   },
   "repository": {
     "type": "git",
@@ -39,7 +47,16 @@
     }
   ],
   "engines": {
-    "node": ">=18.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
+    "node": ">=18.0.0 <=22.x.x",
+    "npm": ">=8.6.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./strapi-admin": {
+      "source": "./admin/src/index.js",
+      "import": "./dist/admin/index.mjs",
+      "require": "./dist/admin/index.js",
+      "default": "./dist/admin/index.js"
+    }
   }
 }
