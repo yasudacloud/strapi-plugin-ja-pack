@@ -1,6 +1,4 @@
-const React = require('react')
-
-const pluginId = require("./pluginId");
+const pluginId = 'ja-pack'
 
 export default {
   register(app) {
